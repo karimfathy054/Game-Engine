@@ -14,7 +14,7 @@ class Connect4Controller {
     (board,playerTurn)
   }
 
-  def isColumnFull(board: Array[Array[Char]], column: Int): Boolean = {
+  private def isColumnFull(board: Array[Array[Char]], column: Int): Boolean = {
     // Check if the column is full
     val columnList = board.map(_(column)).toList
     columnList match {
@@ -39,7 +39,7 @@ class Connect4Controller {
     }
   }
 
-  def getAvailableRow(colNumber: Int, board: Array[Array[Char]]): Int = {
+  private def getAvailableRow(colNumber: Int, board: Array[Array[Char]]): Int = {
     for (r <- 5 to 0 by -1) {
       if (board(r)(colNumber) == '-') {
         return r
@@ -47,20 +47,21 @@ class Connect4Controller {
     }
     -1
   }
-  def applyAction(input:String,state:(Array[Array[Char]],Boolean))={
+
+  def applyAction(input: String, state: (Array[Array[Char]], Boolean)): (Array[Array[Char]], Boolean) = {
     val colNumber = input.charAt(0) - '1'
     var board = state._1
     val playerTurn = state._2 //red==true yellow==false
-    val row = getAvailableRow(colNumber,board)
-    if(playerTurn){//red player
-      board(row)(colNumber)='R'
-    }else{//yellow player
-      board(row)(colNumber)='Y'
+    val row = getAvailableRow(colNumber, board)
+    if (playerTurn) { //red player
+      board(row)(colNumber) = 'R'
+    } else { //yellow player
+      board(row)(colNumber) = 'Y'
     }
-    (board,!playerTurn)
+    (board, !playerTurn)
   }
 
-  def printboard(state: (Array[Array[Char]], Any)) = {
+  private def printboard(state: (Array[Array[Char]], Any)): Unit = {
     val board = state._1
     for (i <- 0 to 5) {
       for (j <- 0 to 6) {
@@ -72,7 +73,7 @@ class Connect4Controller {
   }
 
   def main(args: Array[String]): Unit = {
-    var state = stateInit();
+    var state = stateInit()
     val board = Array(
       Array('-', '-', 'R', '-', '-', '-', '-'),
       Array('-', '-', 'R', '-', '-', '-', '-'),

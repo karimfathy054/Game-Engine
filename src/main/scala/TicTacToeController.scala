@@ -1,7 +1,7 @@
 import scala.io.StdIn.readLine
 
 class TicTacToeController {
-  def stateInit()={
+  def stateInit(): (Array[Array[Char]], Boolean) ={
     val board = Array(
       Array('-','-','-'),
       Array('-','-','-'),
@@ -10,14 +10,14 @@ class TicTacToeController {
     val playerTurn = true
     (board,playerTurn)
   }
-  def validateInputForm(input:String): Boolean ={
+  private def validateInputForm(input:String): Boolean ={
     if(input.matches("""[1-3]+\,+[1-3]""")){
       return true
     }
     println("wrong input form")
     false
   }
-  def parseInput(input:String)={
+  private def parseInput(input:String)={
     val row = input.charAt(0) - '1'
     val col = input.charAt(input.length-1) - '1'
     (row,col)
@@ -35,19 +35,20 @@ class TicTacToeController {
     }
     false
   }
-  def applyAction(input:String,state:(Array[Array[Char]],Boolean)) = {
-    val (row,col) = parseInput(input)
+
+  def applyAction(input: String, state: (Array[Array[Char]], Boolean)): (Array[Array[Char]], Boolean) = {
+    val (row, col) = parseInput(input)
     val board = state._1
-    val playerTurn = state._2//player x = true player O = false
+    val playerTurn = state._2 //player x = true player O = false
     if (playerTurn) {
       board(row)(col) = 'X'
     } else {
       board(row)(col) = 'O'
     }
-    (board,!playerTurn)
+    (board, !playerTurn)
   }
 
-  def printboard(state: (Array[Array[Char]], Boolean)) = {
+  private def printboard(state: (Array[Array[Char]], Boolean)): Unit = {
     val board = state._1
     for (i <- 0 to 2) {
       for (j <- 0 to 2) {

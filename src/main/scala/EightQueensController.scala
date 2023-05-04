@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 import scala.io.StdIn.readLine
 
 class EightQueensController {
@@ -12,11 +13,11 @@ class EightQueensController {
       Array('-', '-', '-', '-', '-', '-', '-', '-'),
       Array('-', '-', '-', '-', '-', '-', '-', '-'),
     )
-    var queens = List()
+    val queens = List()
     (board, queens)
   }
 
-  def validateInputForm(rawInput: String): Boolean = {
+  private def validateInputForm(rawInput: String): Boolean = {
     if (rawInput.matches("""^[a-h]+[1-8]+$""")) {
       return true
     }
@@ -24,13 +25,13 @@ class EightQueensController {
     false
   }
 
-  def parseInput(input: String): (Int, Int) = {
+  private def parseInput(input: String): (Int, Int) = {
     val fromRow = '8' - input.charAt(1)
     val fromCol = input.charAt(0) - 'a'
     (fromRow, fromCol)
   }
 
-  def validateMove(pos: (Int, Int), state: (Array[Array[Char]], List[(Int, Int)])): Boolean = {
+  private def validateMove(pos: (Int, Int), state: (Array[Array[Char]], List[(Int, Int)])): Boolean = {
     val board = state._1
     val queens = state._2
     val row = pos._1
@@ -47,11 +48,12 @@ class EightQueensController {
     }
   }
 
-  def threat(p1: (Int, Int), p2: (Int, Int)): Boolean = {
+  private def threat(p1: (Int, Int), p2: (Int, Int)): Boolean = {
     (p1._1 + p1._2 == p2._1 + p2._2) || (p1._1 - p1._2 == p2._1 - p2._2) || (p1._1 == p2._1) || (p1._2 == p2._2)
   }
 
-  def conflict(p: (Int, Int), sol: List[(Int, Int)]): Boolean = sol match {
+  @tailrec
+  private def conflict(p: (Int, Int), sol: List[(Int, Int)]): Boolean = sol match {
     case Nil => false
     case q :: qs => threat(p, q) || conflict(p, qs)
   }
@@ -87,7 +89,7 @@ class EightQueensController {
     }
   }
 
-  def printboard(state: (Array[Array[Char]], Any)) = {
+  private def printboard(state: (Array[Array[Char]], Any)): Unit = {
     val board = state._1
     for (i <- 0 to 7) {
       for (j <- 0 to 7) {
@@ -99,7 +101,7 @@ class EightQueensController {
   }
 
   def main(args: Array[String]): Unit = {
-    var state = stateInit();
+    var state = stateInit()
     val board = Array(
       Array('-', '-', '-', '-', '-', '-', '-', '-'),
       Array('-', '-', '-', '-', '-', '-', '-', '-'),

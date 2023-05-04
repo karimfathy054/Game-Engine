@@ -1,4 +1,5 @@
 
+import scala.annotation.tailrec
 import scala.io.StdIn.readLine
 
 class ChessController {
@@ -16,32 +17,28 @@ class ChessController {
     val playerTurn = true
     (board,playerTurn)
   }
-  def validateInputForm(rawInput:String): Boolean ={
+  private def validateInputForm(rawInput:String): Boolean ={
     if(rawInput.matches("""^[a-h]+[1-8]+-\>[a-h]+[1-8]+$""")){
-      //return parse input
       return true
     }
     println("wrong input form")
     false
   }
-  def parseInput(input:String): (Int, Int, Int, Int) ={
+  private def parseInput(input:String): (Int, Int, Int, Int) ={
     val fromRow = '8' - input.charAt(1)
     val fromCol = input.charAt(0)- 'a'
     val toRow = '8' - input.charAt(input.length-1)
     val toCol = input.charAt(input.length-2) - 'a'
-    println(input.charAt(1) +" "+ input.charAt(input.length-1))
-    //return validate move
     (fromRow,fromCol,toRow,toCol)
   }
 
-  def validateMove(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean)): Boolean ={
+  private def validateMove(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
     val playerTurn = state._2
     val fromRow = move._1
     val fromCol = move._2
     val toRow = move._3
     val toCol = move._4
-    printf("fromRow=%d\nfromCol=%d\ntoRow=%d\ntoCol=%d\n",fromRow,fromCol,toRow,toCol);
 
     if (fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 || toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
       println("out of bounds")
@@ -75,8 +72,7 @@ class ChessController {
     //return checkRules
     checkRules(move,state)
   }
-  def whitePawnMove(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean)): Boolean ={
-    println("whitepawn takes")
+  private def whitePawnMove(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
     val fromRow = move._1
     val fromCol = move._2
@@ -89,7 +85,6 @@ class ChessController {
     }else if(fromRow == 6 && toRow == 4 && toCol ==fromCol && board(5)(toCol)=='-'){//two cells at the start
       valid=true
     }else if(toRow-fromRow == -1 && Math.abs(fromCol-toCol)==1 && board(toRow)(toCol)!='-'){//pawn takes
-
       valid = true
     }
     if(toRow==0 && valid){
@@ -97,7 +92,7 @@ class ChessController {
     }
     valid
   }
-  def blackPawnMove(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean)): Boolean ={
+  private def blackPawnMove(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
     val fromRow = move._1
     val fromCol = move._2
@@ -117,7 +112,7 @@ class ChessController {
     }
     valid
   }
-  def checkPawn(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean)): Boolean ={
+  private def checkPawn(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val playerTurn = state._2 //white==true black==false
     if(playerTurn){
       whitePawnMove(move,state)
@@ -125,7 +120,7 @@ class ChessController {
       blackPawnMove(move,state)
     }
   }
-  def checkRook(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean)): Boolean ={
+  private def checkRook(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
     //white==true black==false
     val fromRow = move._1
@@ -138,6 +133,7 @@ class ChessController {
     if(!isVerticalMove && !isHorizontalMove){
       return false
     }
+    @tailrec
     def clearPath(row: Int, col: Int, board: Array[Array[Char]]): Boolean = {
       if (row == toRow && col == toCol) {
         return true
@@ -160,7 +156,7 @@ class ChessController {
     clearPath(fromRow,fromCol,board)
   }
 
-  def checkKnight(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean)): Boolean ={
+  private def checkKnight(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
     val playerTurn = state //white==true black==false
     val fromRow = move._1
@@ -170,9 +166,9 @@ class ChessController {
     if((Math.abs(toRow-fromRow)==2 && Math.abs(toCol-fromCol)==1)||(Math.abs(toRow-fromRow)==1 && Math.abs(toCol-fromCol)==2)){
       return true
     }
-    return false
+    false
   }
-  def checkBishop(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean)): Boolean ={
+  private def checkBishop(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
     val playerTurn = state //white==true black==false
     val fromRow = move._1
@@ -183,6 +179,7 @@ class ChessController {
     if(!isDiagonalMove){
       return false
     }
+    @tailrec
     def clearPath(row: Int, col: Int, board: Array[Array[Char]]): Boolean = {
       if (row == toRow && col == toCol) {
         return true
@@ -203,7 +200,7 @@ class ChessController {
     clearPath(fromRow,fromCol,board)
   }
 
-  def checkQueen(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean)): Boolean ={
+  private def checkQueen(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
     val playerTurn = state //white==true black==false
     val fromRow = move._1
@@ -212,7 +209,7 @@ class ChessController {
     val toCol = move._4
     return checkBishop(move,state)||checkRook(move,state)
   }
-  def checkKing(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean)): Boolean ={
+  private def checkKing(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
     val playerTurn = state //white==true black==false
     val fromRow = move._1
@@ -224,10 +221,10 @@ class ChessController {
       valid = true
       return true
     }
-    //check if the king is getting checked in that place
+    //check if the king is getting checked in that place !!
     false
   }
-  def checkRules(move:(Int,Int,Int,Int),state:(Array[Array[Char]],Boolean))={
+  private def checkRules(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean))={
     val board= state._1
     val playerTurn =state._2
     val fromRow = move._1
@@ -268,7 +265,7 @@ class ChessController {
     board(fromRow)(fromCol) = '-'
     (board,!playerTurn)
   }
-  def printboard(state:(Array[Array[Char]],Boolean))={
+  private def printboard(state:(Array[Array[Char]],Boolean))={
     val board = state._1
     for (i<-0 to 7){
       for(j <-0 to 7){
