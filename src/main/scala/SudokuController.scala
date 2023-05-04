@@ -1,6 +1,6 @@
 import scala.io.StdIn.readLine
 
-object SudokuController {
+class SudokuController {
 
   def stateInit(): Array[Array[Char]] = {
     // Create an empty puzzle of the specified size.
