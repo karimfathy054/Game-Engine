@@ -1,9 +1,9 @@
 import java.awt._
 import javax.swing._
 class SudokuDrawer extends Drawer{
-  override def draw(frame: JFrame, board: Array[Array[Char]]): Unit = {
+  override def draw(frame: JFrame, board: Array[Array[Char]]): JFrame = {
     frame.setSize(800, 800)
-    frame.setTitle("chess")
+    frame.setTitle("Sudoku")
     frame.setLayout(new BorderLayout(5, 5))
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     val bord = new JPanel()
@@ -45,5 +45,6 @@ class SudokuDrawer extends Drawer{
     frame.add(indexRow, BorderLayout.SOUTH)
 
     frame.setVisible(true)
+    frame
   }
 }

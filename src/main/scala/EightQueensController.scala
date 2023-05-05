@@ -1,8 +1,7 @@
 import scala.annotation.tailrec
-import scala.io.StdIn.readLine
 
-class EightQueensController {
-  def stateInit(): (Array[Array[Char]], List[(Int, Int)]) = {
+class EightQueensController extends Controller {
+  def EightQStateInit(): (Array[Array[Char]], List[(Int, Int)]) = {
     val board = Array(
       Array('-', '-', '-', '-', '-', '-', '-', '-'),
       Array('-', '-', '-', '-', '-', '-', '-', '-'),
@@ -58,7 +57,7 @@ class EightQueensController {
     case q :: qs => threat(p, q) || conflict(p, qs)
   }
 
-  def validateInput(input: String, state: (Array[Array[Char]], List[(Int, Int)])): Boolean = {
+  def EightQvalidateInput(input: String, state: (Array[Array[Char]], List[(Int, Int)])): Boolean = {
     if (validateInputForm(input)) {
       val position = parseInput(input)
       if (validateMove(position, state)) {
@@ -71,7 +70,7 @@ class EightQueensController {
     false
   }
 
-  def applyAction(input: String, state: (Array[Array[Char]], List[(Int, Int)])): (Array[Array[Char]], List[(Int, Int)]) = {
+  def EightQapplyAction(input: String, state: (Array[Array[Char]], List[(Int, Int)])): (Array[Array[Char]], List[(Int, Int)]) = {
     val move = parseInput(input)
     val row = move._1
     val col = move._2
@@ -100,27 +99,39 @@ class EightQueensController {
     printf("a\tb\tc\td\te\tf\tg\th\n")
   }
 
-  def main(args: Array[String]): Unit = {
-    var state = stateInit()
-    val board = Array(
-      Array('-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', 'Q', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-'),
-    )
-    val list = (5,2) :: state._2
-    state = (board,list)
-    printboard(state)
-    val input = readLine()
-    //    val x =validateInputForm(input)
-    //    println(x)
-    if (validateInput(input, state)) {
-      state = applyAction(input, state)
-      printboard(state)
-    }
-  }
+//  def main(args: Array[String]): Unit = {
+//    var state = stateInit()
+//    val board = Array(
+//      Array('-', '-', '-', '-', '-', '-', '-', '-'),
+//      Array('-', '-', '-', '-', '-', '-', '-', '-'),
+//      Array('-', '-', '-', '-', '-', '-', '-', '-'),
+//      Array('-', '-', '-', '-', '-', '-', '-', '-'),
+//      Array('-', '-', '-', '-', '-', '-', '-', '-'),
+//      Array('-', '-', 'Q', '-', '-', '-', '-', '-'),
+//      Array('-', '-', '-', '-', '-', '-', '-', '-'),
+//      Array('-', '-', '-', '-', '-', '-', '-', '-'),
+//    )
+//    val list = (5,2) :: state._2
+//    state = (board,list)
+//    printboard(state)
+//    val input = readLine()
+//    //    val x =validateInputForm(input)
+//    //    println(x)
+//    if (validateInput(input, state)) {
+//      state = applyAction(input, state)
+//      printboard(state)
+//    }
+//  }
+
+  override def stateInit(): (Array[Array[Char]], Boolean) = ???
+
+  override def SudokuStateInit(): Array[Array[Char]] = ???
+
+  override def SudokuvalidateInput(input: String, state: Array[Array[Char]]): Boolean = ???
+
+  override def SudokuapplyAction(input: String, state: Array[Array[Char]]): Array[Array[Char]] = ???
+
+  override def validateInput(input: String, state: (Array[Array[Char]], Boolean)): Boolean = ???
+
+  override def applyAction(input: String, state: (Array[Array[Char]], Boolean)): (Array[Array[Char]], Boolean) = ???
 }

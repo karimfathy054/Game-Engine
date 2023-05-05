@@ -1,9 +1,9 @@
 import java.awt._
 import javax.swing._
 class Connect4Drawer extends Drawer{
-  override def draw(frame: JFrame, board: Array[Array[Char]]): Unit = {
+  override def draw(frame: JFrame, board: Array[Array[Char]]): JFrame = {
     frame.setSize(800, 800)
-    frame.setTitle("chess")
+    frame.setTitle("Connect4")
     frame.setLayout(new BorderLayout(5, 5))
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     val gameBoard = new JPanel()
@@ -29,6 +29,7 @@ class Connect4Drawer extends Drawer{
     frame.add(indexRow, BorderLayout.SOUTH)
 
     frame.setVisible(true)
+    frame
   }
 
   def getGamePiece(row: Int, column: Int, board: Array[Array[Char]]): ImageIcon = {

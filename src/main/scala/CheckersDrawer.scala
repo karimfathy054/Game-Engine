@@ -2,9 +2,9 @@ import java.awt._
 import javax.swing._
 
 class CheckersDrawer extends Drawer{
-  override def draw(frame:JFrame , board:Array[Array[Char]]):Unit={
+  override def draw(frame:JFrame , board:Array[Array[Char]]):JFrame={
     frame.setSize(800, 800)
-    frame.setTitle("chess")
+    frame.setTitle("Checkers")
     frame.setLayout(new BorderLayout(5, 5))
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     val chessBoard = new JPanel()
@@ -44,6 +44,7 @@ class CheckersDrawer extends Drawer{
     frame.add(indexRow, BorderLayout.SOUTH)
 
     frame.setVisible(true)
+    frame
   }
 
   def getChessPiece(row: Int, column: Int, board: Array[Array[Char]]): ImageIcon = {

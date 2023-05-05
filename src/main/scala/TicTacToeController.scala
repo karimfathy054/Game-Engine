@@ -74,4 +74,16 @@ class TicTacToeController extends Controller {
       printboard(state)
     }
   }
+
+  override def EightQStateInit(): (Array[Array[Char]], List[(Int, Int)]) = ???
+
+  override def EightQvalidateInput(input: String, state: (Array[Array[Char]], List[(Int, Int)])): Boolean = ???
+
+  override def EightQapplyAction(input: String, state: (Array[Array[Char]], List[(Int, Int)])): (Array[Array[Char]], List[(Int, Int)]) = ???
+
+  override def SudokuStateInit(): Array[Array[Char]] = ???
+
+  override def SudokuvalidateInput(input: String, state: Array[Array[Char]]): Boolean = ???
+
+  override def SudokuapplyAction(input: String, state: Array[Array[Char]]): Array[Array[Char]] = ???
 }

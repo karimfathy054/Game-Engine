@@ -3,9 +3,9 @@ import java.awt._
 import java.io.File
 import javax.imageio.ImageIO
 class TicTacToeDrawer extends Drawer {
-  override def draw(frame: JFrame, board: Array[Array[Char]]): Unit = {
+  override def draw(frame: JFrame, board: Array[Array[Char]]): JFrame = {
     frame.setSize(800, 800)
-    frame.setTitle("chess")
+    frame.setTitle("TicTacToe")
     frame.setLayout(new BorderLayout(5, 5))
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
     val chessBoard = new JPanel()
@@ -44,7 +44,7 @@ class TicTacToeDrawer extends Drawer {
     frame.add(indexRow, BorderLayout.SOUTH)
 
     frame.setVisible(true)
-
+    frame
   }
 
   def getGamePieces(row: Int, column: Int, board: Array[Array[Char]]): ImageIcon = {

@@ -1,8 +1,8 @@
-import scala.io.StdIn.readLine
 
-class SudokuController {
 
-  def stateInit(): Array[Array[Char]] = {
+class SudokuController extends Controller {
+
+  def SudokuStateInit(): Array[Array[Char]] = {
     // Create an empty puzzle of the specified size.
     val puzzle = Array(
       Array('-', '-', '-', '-', '-', '-', '-', '-', '-'),
@@ -54,7 +54,7 @@ class SudokuController {
     (row,col,value)
   }
 
-  def validateInput(rawInput:String, state:Array[Array[Char]]):Boolean={
+  def SudokuvalidateInput(rawInput:String, state:Array[Array[Char]]):Boolean={
     if(validateInputForm(rawInput)){
       val input = parserInput(rawInput)
       val row = input._1
@@ -84,7 +84,7 @@ class SudokuController {
     board.slice(rowStart, rowStart + 3).flatMap(_.slice(colStart, colStart + 3))
   }
 
-  def applyAction(input:String, state:Array[Array[Char]]): Array[Array[Char]] ={
+  def SudokuapplyAction(input:String, state:Array[Array[Char]]): Array[Array[Char]] ={
     val move = parserInput(input)
     val row = move._1
     val col = move._2
@@ -103,13 +103,25 @@ class SudokuController {
     }
   }
 
-  def main(args: Array[String]): Unit = {
-    var state = stateInit()
-    print(state)
-    val input = readLine()
-    if (validateInput(input, state)) {
-      state = applyAction(input, state)
-      print(state)
-    }
-  }
+//  def main(args: Array[String]): Unit = {
+//    var state = stateInit()
+//    print(state)
+//    val input = readLine()
+//    if (validateInput(input, state)) {
+//      state = applyAction(input, state)
+//      print(state)
+//    }
+//  }
+
+  override def stateInit(): (Array[Array[Char]], Boolean) = ???
+
+  override def EightQStateInit(): (Array[Array[Char]], List[(Int, Int)]) = ???
+
+  override def EightQvalidateInput(input: String, state: (Array[Array[Char]], List[(Int, Int)])): Boolean = ???
+
+  override def EightQapplyAction(input: String, state: (Array[Array[Char]], List[(Int, Int)])): (Array[Array[Char]], List[(Int, Int)]) = ???
+
+  override def validateInput(input: String, state: (Array[Array[Char]], Boolean)): Boolean = ???
+
+  override def applyAction(input: String, state: (Array[Array[Char]], Boolean)): (Array[Array[Char]], Boolean) = ???
 }
