@@ -1,6 +1,6 @@
 import scala.io.StdIn.readLine
 
-class TicTacToeController {
+class TicTacToeController extends Controller {
   def stateInit(): (Array[Array[Char]], Boolean) ={
     val board = Array(
       Array('-','-','-'),

@@ -2,7 +2,7 @@
 import scala.annotation.tailrec
 import scala.io.StdIn.readLine
 
-class ChessController {
+class ChessController extends Controller {
   def stateInit():(Array[Array[Char]],Boolean)={
     val board = Array(
       Array('R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'),

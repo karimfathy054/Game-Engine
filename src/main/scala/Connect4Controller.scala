@@ -1,7 +1,7 @@
 import scala.io.StdIn.readLine
 
-class Connect4Controller {
-  def stateInit()={
+class Connect4Controller extends Controller {
+  def stateInit(): (Array[Array[Char]], Boolean) ={
     val board = Array(
       Array('-','-','-','-','-','-','-'),
       Array('-','-','-','-','-','-','-'),
