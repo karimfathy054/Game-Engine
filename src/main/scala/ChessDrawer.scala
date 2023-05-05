@@ -1,8 +1,9 @@
 import java.awt._
 import javax.swing._
 
-class ChessDrawer {
-  def draw(frame:JFrame , board:Array[Array[Char]]):Unit={
+class ChessDrawer extends Drawer {
+  override def draw(inFrame:JFrame , board:Array[Array[Char]]):Unit={
+    val frame = inFrame
     frame.setSize(800, 800)
     frame.setTitle("chess")
     frame.setLayout(new BorderLayout(5, 5))
@@ -62,6 +63,5 @@ class ChessDrawer {
       case 'p' => new ImageIcon("src/main/scala/Chess/WP.png")
       case '-' => null
     }
-
   }
 }
