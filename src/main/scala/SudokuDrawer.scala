@@ -1,8 +1,7 @@
 import java.awt._
 import javax.swing._
 class SudokuDrawer extends Drawer{
-  override def draw(inFrame: JFrame, board: Array[Array[Char]]): Unit = {
-    val frame = inFrame
+  override def draw(frame: JFrame, board: Array[Array[Char]]): Unit = {
     frame.setSize(800, 800)
     frame.setTitle("chess")
     frame.setLayout(new BorderLayout(5, 5))
