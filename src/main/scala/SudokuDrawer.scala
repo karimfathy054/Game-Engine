@@ -1,7 +1,7 @@
 import java.awt._
 import javax.swing._
-class SudokuDrawer extends Drawer{
-  override def draw(frame: JFrame, board: Array[Array[Char]]): JFrame = {
+class SudokuDrawer {
+   def draw(frame: JFrame, board: Array[Array[(Char,Boolean)]]): JFrame = {
     frame.setSize(800, 800)
     frame.setTitle("Sudoku")
     frame.setLayout(new BorderLayout(5, 5))
@@ -18,7 +18,7 @@ class SudokuDrawer extends Drawer{
             val cell = new JButton()
             //            cell.setSize(50,50)
             cell.setBackground(Color.WHITE)
-            cell.setText(board(y + 3 * i)(x + 3 * j).toString)
+            cell.setText(board(y + 3 * i)(x + 3 * j)._1.toString)
             block.add(cell)
           }
         }

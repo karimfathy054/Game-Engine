@@ -32,13 +32,11 @@ class ChessController extends Controller {
     (fromRow,fromCol,toRow,toCol)
   }
 
-  private def validateMove(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
+  private def validateMove(input:String,move:(String)=>(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
     val playerTurn = state._2
-    val fromRow = move._1
-    val fromCol = move._2
-    val toRow = move._3
-    val toCol = move._4
+
+    val (fromRow,fromCol,toRow,toCol) = move(input)
 
     if (fromRow < 0 || fromRow > 7 || fromCol < 0 || fromCol > 7 || toRow < 0 || toRow > 7 || toCol < 0 || toCol > 7) {
       println("out of bounds")
@@ -70,7 +68,7 @@ class ChessController extends Controller {
       }
     }
     //return checkRules
-    checkRules(move,state)
+    checkRules(move(input),state)
   }
   private def whitePawnMove(move:(Int,Int,Int,Int), state:(Array[Array[Char]],Boolean)): Boolean ={
     val board = state._1
@@ -245,8 +243,8 @@ class ChessController extends Controller {
 
   def validateInput(input:String,state:(Array[Array[Char]],Boolean)): Boolean ={
     if(validateInputForm(input)){
-      val move = parseInput(input)
-      return validateMove(move, state)
+//      val move = parseInput(input)
+      return validateMove(input,parseInput, state)
     }else{
       println("wrong input form")
       return false
@@ -305,9 +303,9 @@ class ChessController extends Controller {
 
   override def EightQapplyAction(input: String, state: (Array[Array[Char]], List[(Int, Int)])): (Array[Array[Char]], List[(Int, Int)]) = ???
 
-  override def SudokuStateInit(): Array[Array[Char]] = ???
+  override def SudokuStateInit(): Array[Array[(Char, Boolean)]] = ???
 
-  override def SudokuvalidateInput(input: String, state: Array[Array[Char]]): Boolean = ???
+  override def SudokuvalidateInput(input: String, state: Array[Array[(Char, Boolean)]]): Boolean = ???
 
-  override def SudokuapplyAction(input: String, state: Array[Array[Char]]): Array[Array[Char]] = ???
+  override def SudokuapplyAction(input: String, state: Array[Array[(Char, Boolean)]]): Array[Array[(Char, Boolean)]] = ???
 }

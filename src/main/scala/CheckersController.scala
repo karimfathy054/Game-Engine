@@ -161,9 +161,9 @@ class CheckersController extends Controller {
 
   override def EightQapplyAction(input: String, state: (Array[Array[Char]], List[(Int, Int)])): (Array[Array[Char]], List[(Int, Int)]) = ???
 
-  override def SudokuStateInit(): Array[Array[Char]] = ???
+  override def SudokuStateInit(): Array[Array[(Char, Boolean)]] = ???
 
-  override def SudokuvalidateInput(input: String, state: Array[Array[Char]]): Boolean = ???
+  override def SudokuvalidateInput(input: String, state: Array[Array[(Char, Boolean)]]): Boolean = ???
 
-  override def SudokuapplyAction(input: String, state: Array[Array[Char]]): Array[Array[Char]] = ???
+  override def SudokuapplyAction(input: String, state: Array[Array[(Char, Boolean)]]): Array[Array[(Char, Boolean)]] = ???
 }

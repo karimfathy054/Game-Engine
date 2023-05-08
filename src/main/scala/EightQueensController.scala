@@ -125,11 +125,11 @@ class EightQueensController extends Controller {
 
   override def stateInit(): (Array[Array[Char]], Boolean) = ???
 
-  override def SudokuStateInit(): Array[Array[Char]] = ???
+  override def SudokuStateInit(): Array[Array[(Char, Boolean)]] = ???
 
-  override def SudokuvalidateInput(input: String, state: Array[Array[Char]]): Boolean = ???
+  override def SudokuvalidateInput(input: String, state: Array[Array[(Char, Boolean)]]): Boolean = ???
 
-  override def SudokuapplyAction(input: String, state: Array[Array[Char]]): Array[Array[Char]] = ???
+  override def SudokuapplyAction(input: String, state: Array[Array[(Char, Boolean)]]): Array[Array[(Char, Boolean)]] = ???
 
   override def validateInput(input: String, state: (Array[Array[Char]], Boolean)): Boolean = ???
 

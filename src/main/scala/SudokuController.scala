@@ -2,18 +2,18 @@
 
 class SudokuController extends Controller {
 
-  def SudokuStateInit(): Array[Array[Char]] = {
+  def SudokuStateInit(): Array[Array[(Char,Boolean)]] = {
     // Create an empty puzzle of the specified size.
     val puzzle = Array(
-      Array('-', '-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-', '-'),
-      Array('-', '-', '-', '-', '-', '-', '-', '-', '-')
+      Array(('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false)),
+      Array(('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false)),
+      Array(('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false)),
+      Array(('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false)),
+      Array(('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false)),
+      Array(('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false)),
+      Array(('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false)),
+      Array(('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false)),
+      Array(('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false),('-',false)),
     )
 
     // Recursively generate the puzzle.
@@ -28,7 +28,7 @@ class SudokuController extends Controller {
 
       // If the value is not present in the row or column, then set it.
       if(isValid(puzzle,row, col, value)){
-        puzzle(row)(col) = value
+        puzzle(row)(col) = (value,true)
       }
     }
 
@@ -54,12 +54,16 @@ class SudokuController extends Controller {
     (row,col,value)
   }
 
-  def SudokuvalidateInput(rawInput:String, state:Array[Array[Char]]):Boolean={
+  def SudokuvalidateInput(rawInput:String, state:Array[Array[(Char,Boolean)]]):Boolean={
     if(validateInputForm(rawInput)){
       val input = parserInput(rawInput)
       val row = input._1
       val col = input._2
       val value = input._3
+      if(state(row)(col)._2){
+        println("you can't modify that cell as it is a part of the puzzle")
+        return false
+      }
       if(isValid(state,row, col, value)){
         true
       }else{
@@ -72,24 +76,25 @@ class SudokuController extends Controller {
     }
   }
 
-  private def isValid(board: Array[Array[Char]], row: Int, col: Int, value: Char): Boolean = {
-      !board(row).contains(value) &&
-      !board.map(_(col)).contains(value) &&
-      !getSquare(board, row, col).contains(value)
+  private def isValid(board: Array[Array[(Char,Boolean)]], row: Int, col: Int, value: Char): Boolean = {
+      !board(row).contains((value,false)) && !board(row).contains((value,true)) &&
+      !board.map(_(col)).contains((value,false)) && !board.map(_(col)).contains((value,true)) &&
+      !getSquare(board, row, col).contains((value,false)) && !getSquare(board, row, col).contains((value,true))
   }
 
-  private def getSquare(board: Array[Array[Char]], row: Int, col: Int): Array[Char] = {
+  private def getSquare(board: Array[Array[(Char,Boolean)]], row: Int, col: Int): Array[(Char, Boolean)] = {
     val rowStart = (row / 3) * 3
     val colStart = (col / 3) * 3
     board.slice(rowStart, rowStart + 3).flatMap(_.slice(colStart, colStart + 3))
   }
 
-  def SudokuapplyAction(input:String, state:Array[Array[Char]]): Array[Array[Char]] ={
+
+  def SudokuapplyAction(input:String, state:Array[Array[(Char,Boolean)]]): Array[Array[(Char, Boolean)]] ={
     val move = parserInput(input)
     val row = move._1
     val col = move._2
     val value = move._3
-    state(row)(col) = value
+    state(row)(col) = (value,false)
 
     state
   }

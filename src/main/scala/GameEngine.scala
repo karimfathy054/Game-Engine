@@ -8,7 +8,8 @@ object GameEngine {
     case 3 => (new Connect4Controller(),new Connect4Drawer())
     case 4 => (new TicTacToeController(),new TicTacToeDrawer())
     case 5 => (new EightQueensController(),new EightQueensDrawer())
-    case 6 => (new SudokuController(),new SudokuDrawer())
+//    case 6 => (new SudokuController(),new SudokuDrawer())
+    case 6 => (null,null)
   }
   def main(args: Array[String]): Unit = {
     println("choose a game\n" +
@@ -20,7 +21,7 @@ object GameEngine {
       "[6]Sudoku")
     val game = readLine()
     val gameNumber = game.toInt
-    val(controller,drawer) = getControllerAndDrawer(gameNumber)
+    var (controller, drawer) = getControllerAndDrawer(gameNumber)
     if(gameNumber==5){
       var state = controller.EightQStateInit()
       val frame = new JFrame()
@@ -38,16 +39,18 @@ object GameEngine {
         }
       }
     }else if (gameNumber == 6) {
+      controller = new SudokuController()
+      val sudokuDrawer = new SudokuDrawer()
       var state = controller.SudokuStateInit()
       var frame = new JFrame()
-      drawer.draw(frame, state)
+      sudokuDrawer.draw(frame, state)
       while (true) {
         println("enter the [row column value] to add a value\n" +
           "put them in that order [row column value]")
         val input = readLine()
         if (controller.SudokuvalidateInput(input, state)) {
           state = controller.SudokuapplyAction(input, state)
-          drawer.draw(frame, state)
+          sudokuDrawer.draw(frame, state)
         } else {
           println("input is not valid \n" +
             "try again")
