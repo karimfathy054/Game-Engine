@@ -13,14 +13,7 @@ def main(): Unit = {
   val game = readLine()
   val gameNumber = game.toInt
   val (controller, drawer) = getControllerAndDrawer(gameNumber)
-  if(gameNumber == 6){
-    val sudokuCont = sudokuController
-    val sudokuDraw = sudokuDrawer
-    val statInit = sudokuStateInit()
-    sudokuGameEngine(statInit,sudokuCont,sudokuDraw)
-  }else{
-    val initialState = getInitialState(gameNumber)
-    GameEngine(initialState , controller , drawer)
-  }
+  val initialState = getInitialState(gameNumber)
+  GameEngine(initialState , controller , drawer)
 
 }
