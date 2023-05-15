@@ -123,7 +123,7 @@ def checkersController(userInput:String,gameState:(Array[Array[Char]],Boolean)):
     if (Math.abs(fromCol - toCol) == 2) {
       board((toRow + fromRow) / 2)((toCol + fromCol) / 2) = '-'
     }
-    (board, playerTurn)
+    (board, !playerTurn)
   }
   if(validateInput(userInput,gameState)){
     return applyAction(userInput,gameState)

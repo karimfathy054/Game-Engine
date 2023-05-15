@@ -59,7 +59,7 @@ def connect4Controller(userInput: String, gameState: (Array[Array[Char]], Boolea
     } else { //yellow player
       board(row)(colNumber) = 'Y'
     }
-    (board, playerTurn)
+    (board, !playerTurn)
   }
 
   if (validateInput(userInput, gameState)) {

@@ -24,6 +24,11 @@ def GameEngine(initialState:(Array[Array[Char]],Boolean),controller:(String,(Arr
   var frame = new JFrame()
   frame = drawer(frame, gamestate._1)
   while (true){
+    if (gamestate._2) {
+      println("player1 turn in multiplayer games only")
+    } else {
+      println("player2 turn in multiplayer games only")
+    }
     println(">>in case of Chess/Checker enter the name of initial and destination cells of the piece you want to move in the form of a2->a4\n" +
       ">>in case of TicTacToe enter the number or row followed by a comma then the number of column with no spaces in between as 2,2\n" +
       ">>in case of Connect4 enter the number of column only\n" +
@@ -32,7 +37,7 @@ def GameEngine(initialState:(Array[Array[Char]],Boolean),controller:(String,(Arr
     val input = readLine()
     gamestate = controller(input, gamestate)
     frame = drawer(frame, gamestate._1)
-    gamestate = changePlayer(gamestate)
+//    gamestate = changePlayer(gamestate)
   }
 }
 

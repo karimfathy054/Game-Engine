@@ -44,7 +44,7 @@ def chessController(userInput:String,gameState:(Array[Array[Char]],Boolean)): (A
       return false
     }
     if (board(fromRow)(fromCol) == '-') {
-      println("Clicked on empty space.")
+      println("You Chose an empty space.")
       return false
     }
 
@@ -275,7 +275,7 @@ def chessController(userInput:String,gameState:(Array[Array[Char]],Boolean)): (A
     val toCol = move._4
     board(toRow)(toCol) = board(fromRow)(fromCol)
     board(fromRow)(fromCol) = '-'
-    (board, playerTurn)
+    (board, !playerTurn)
   }
   if(validateInput(userInput,gameState)){
     return applyAction(userInput,gameState)

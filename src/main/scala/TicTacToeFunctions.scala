@@ -50,7 +50,7 @@ def XOcontroller(userInput: String, gameState: (Array[Array[Char]], Boolean)): (
     } else {
       board(row)(col) = 'O'
     }
-    (board, playerTurn)
+    (board, !playerTurn)
   }
 
   if (validateInput(userInput, gameState)) {
