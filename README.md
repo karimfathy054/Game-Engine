@@ -6,8 +6,7 @@ a project for Programming Paradigms course where we implement 6 board games usin
 ## features of functional programming used in the project
 ### Pattern Matching
 - Used to deal with patterns among lists
-  -
- ```
+```
  def isColumnFull(board: Array[Array[Char]], column: Int): Boolean = {
     val columnList = board.map(_(column)).toList
     columnList match {
@@ -16,8 +15,8 @@ a project for Programming Paradigms course where we implement 6 board games usin
       case _ => false
     }
   }
-  ```
-  - 
+```
+  
 ```
 def conflict(p: (Int, Int), queens: List[(Int, Int)]): Boolean = queens match {
     case Nil => false
