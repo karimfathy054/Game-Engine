@@ -4,8 +4,8 @@ a project for Programming Paradigms course where we implement 6 board games usin
 ** that repo is for the functional programming paradigm implementation of the project **
 
 ## features of functional programming used in the project
-### Pattern Matcching
-* Used to deal with patterns among lists
+### Pattern Matching
+- Used to deal with patterns among lists
   -
  ```
  def isColumnFull(board: Array[Array[Char]], column: Int): Boolean = {
@@ -26,7 +26,7 @@ def conflict(p: (Int, Int), queens: List[(Int, Int)]): Boolean = queens match {
 ```
   
 ### Higher Order Functions
-* used as a layer of abstraction
+- Used as a layer of abstraction
 - that function returns the proper functions corresponding to the chosen game 
 ```
 def getControllerAndDrawer(gameNumber:Int)= gameNumber match{
